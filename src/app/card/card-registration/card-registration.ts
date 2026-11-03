@@ -1,5 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject} from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import { CardService } from '../card-service';
+import { CardData } from '../card';
 
 interface CardRegistrationForm {
   name: FormControl<string>;
@@ -15,6 +17,7 @@ interface CardRegistrationForm {
 
 export class CardRegistration implements OnInit {
   form!: FormGroup<CardRegistrationForm>;
+  service = inject(CardService);
 
   ngOnInit(): void {
     this.form = new FormGroup<CardRegistrationForm>({
@@ -25,7 +28,15 @@ export class CardRegistration implements OnInit {
 
   onSubmit(): void{
     if(this.form.valid) {
-      console.log('Form Submitted', this.form.value);
+      const card = this.form.value as CardData;
+      this.service.create(card).subscribe({
+        next: (response) => {
+          console.log('Card created successfully', response);
+        },
+        error: (error) => {
+          console.error('Error creating card', error);
+        }
+      });
     } else {
       console.log('Form is invalid');
     }
