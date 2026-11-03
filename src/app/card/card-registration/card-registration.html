@@ -11,15 +11,15 @@
     <div class="card">
         <h2>New Card</h2>
 
-        <form class="form">
+        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="name">Card Name: *</label>
-                <input type="text" id="name" name="name" placeholder="Ex: My Credit Card" required>
+                <input formControlName="name" type="text" id="name" name="name" placeholder="Ex: My Credit Card" required>
             </div>
 
             <div class="form-group">
                 <label for="brand">Brand: *</label>
-                <select id="brand" name="brand" required>
+                <select formControlName="brand" id="brand" name="brand" required>
                     <option value="">Select a brand</option>
                     <option value="visa">Visa</option>
                     <option value="mastercard">Mastercard</option>
