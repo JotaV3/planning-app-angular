@@ -3,10 +3,10 @@ export interface ValidationError{
     status: number;
     error: string;
     path: string;
-    invalidFields: InvalidField[];
+    invalidFieldList: InvalidField[];
 }
 
 export interface InvalidField{
-    field: string;
+    name: string;
     error: string;
 }

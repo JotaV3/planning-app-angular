@@ -52,9 +52,9 @@ export class CardRegistration implements OnInit {
   }
 
   private applyValidationErrors(errors: any): void {
-    if (errors && errors.invalidFields) {
-      errors.invalidFields.forEach((invalidField: InvalidField) => {
-        const control = this.form.get(invalidField.field);
+    if (errors?.invalidFieldList) {
+      errors.invalidFieldList.forEach((invalidField: InvalidField) => {
+        const control = this.form.get(invalidField.name);
         if (control) {
           control.setErrors({ apiError: invalidField.error });
           control.markAsTouched();
@@ -64,7 +64,7 @@ export class CardRegistration implements OnInit {
   }
 
   private onApiError(response: any): void {
-    if (response.status === 422 && response.error && response.error.invalidFields) {
+    if (response.status === 422 && response.error?.invalidFieldList) {
       this.applyValidationErrors(response.error);
     } else {
       console.error('Unexpected error', response);
