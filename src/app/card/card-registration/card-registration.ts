@@ -1,8 +1,9 @@
-import { Component, OnInit, inject} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CardService } from '../card-service';
 import { CardData } from '../card';
 import { InvalidField } from '../../common/validation/validation-error';
+import { CommonModule } from '@angular/common';
 
 interface CardRegistrationForm {
   name: FormControl<string>;
@@ -10,7 +11,7 @@ interface CardRegistrationForm {
 }
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   selector: 'app-card-registration',
   styleUrl: './card-registration.scss',
   templateUrl: './card-registration.html',
