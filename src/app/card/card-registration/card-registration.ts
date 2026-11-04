@@ -2,6 +2,7 @@ import { Component, OnInit, inject} from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CardService } from '../card-service';
 import { CardData } from '../card';
+import { InvalidField } from '../../common/validation/validation-error';
 
 interface CardRegistrationForm {
   name: FormControl<string>;
@@ -33,12 +34,30 @@ export class CardRegistration implements OnInit {
         next: (response) => {
           console.log('Card created successfully', response);
         },
-        error: (error) => {
-          console.error('Error creating card', error);
-        }
+        error: (error) => this.onApiError(error)
       });
     } else {
       console.log('Form is invalid');
+    }
+  }
+
+  private applyValidationErrors(errors: any): void {
+    if (errors && errors.invalidFields) {
+      errors.invalidFields.forEach((invalidField: InvalidField) => {
+        const control = this.form.get(invalidField.field);
+        if (control) {
+          control.setErrors({ apiError: invalidField.error });
+          control.markAsTouched();
+        }
+      });
+    }
+  }
+
+  private onApiError(response: any): void {
+    if (response.status === 422 && response.error && response.error.invalidFields) {
+      this.applyValidationErrors(response.error);
+    } else {
+      console.error('Unexpected error', response);
     }
   }
 } 
