@@ -28,17 +28,26 @@ export class CardRegistration implements OnInit {
   }
 
   onSubmit(): void{
-    if(this.form.valid) {
-      const card = this.form.value as CardData;
-      this.service.create(card).subscribe({
-        next: (response) => {
-          console.log('Card created successfully', response);
-        },
-        error: (error) => this.onApiError(error)
-      });
-    } else {
+    if(this.isFormInvalid()) return;
+    
+    const card = this.form.value as CardData;
+    this.service.create(card).subscribe({
+      next: (response) => {
+        console.log('Card created successfully', response);
+      },
+      error: (error) => this.onApiError(error)
+    });
+  }
+
+  private isFormInvalid(): boolean {
+    if(this.form.invalid) {
+      this.form.markAllAsTouched();
       console.log('Form is invalid');
+
+      return true;
     }
+
+    return false;
   }
 
   private applyValidationErrors(errors: any): void {
