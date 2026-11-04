@@ -1,0 +1,61 @@
+<header class="header">
+    <h1>Card Registration</h1>
+
+    <div class="user-area">
+        <span class="user-name">Hello, User</span>
+        <i class="fa-solid fa-circle-user"></i>
+    </div>
+</header>
+
+<main class="content">
+    <div class="card">
+        <h2>New Card</h2>
+
+        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Card Name: *</label>
+                <input formControlName="name" type="text" id="name" name="name" placeholder="Ex: My Credit Card" required>
+
+                @if(form.controls.name.hasError('required') && form.controls.name.touched){
+                    <span class="form-hint form-hint-error">
+                        Card name is required.
+                    </span>
+                }
+
+                @if(form.controls.name.hasError('apiError') && form.controls.name.touched){
+                    <span class="form-hint form-hint-error">
+                        {{ form.get('name')?.errors?.['apiError'] }}
+                    </span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="brand">Brand: *</label>
+                <select formControlName="brand" id="brand" name="brand" required>
+                    <option value="">Select a brand</option>
+                    <option value="VISA">Visa</option>
+                    <option value="MASTERCARD">Mastercard</option>
+                    <option value="AMERICAN_EXPRESS">American Express</option>
+                    <option value="DINERS">Diners</option>
+                </select>
+
+                @if(form.controls.brand.hasError('required') && form.controls.brand.touched){
+                    <span class="form-hint form-hint-error">
+                        Brand is required.
+                    </span>
+                }
+
+                @if(form.controls.brand.hasError('apiError') && form.controls.brand.touched){
+                    <span class="form-hint form-hint-error">
+                        {{ form.get('brand')?.errors?.['apiError'] }}
+                    </span>
+                }
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="reset" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</main>
