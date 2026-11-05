@@ -4,10 +4,9 @@ A clean, modern planning app built with Angular. This project provides the found
 
 ## Tech stack
 
-- [Angular](https://angular.dev/) 22
+- Angular 22
 - TypeScript
 - SCSS
-- [Vitest](https://vitest.dev/) for unit testing
 
 ## Getting started
 
@@ -47,17 +46,3 @@ src/
 ├── index.html    # Main HTML page
 └── styles.scss   # Global styles
 ```
-
-## Development
-
-This project uses the Angular CLI. To scaffold a component, run:
-
-```bash
-ng generate component component-name
-```
-
-For more Angular CLI commands and guidance, see the [Angular CLI documentation](https://angular.dev/tools/cli).
-
-## Contributing
-
-Contributions and suggestions are welcome. Feel free to open an issue to report a problem or propose an improvement.
