@@ -5,7 +5,7 @@ import { CardRegistration } from './card/card-registration/card-registration';
 export const routes: Routes = [
     {
         component: Template,
-        path: 'home',
+        path: '',
         children: [
             {
                 component: CardRegistration,
