@@ -1,0 +1,73 @@
+<main class="auth-page">
+    <section class="auth-panel">
+        <div class="brand">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Planning</span>
+        </div>
+
+        <div class="mode-switch">
+            <button 
+                type="button"
+                [class.active]="mode === 'Login'"
+                (click)="onSwitchMode('Login')">
+
+                Log in
+            </button>
+
+            <button 
+                type="button"
+                [class.active]="mode === 'Register'"
+                (click)="onSwitchMode('Register')">
+
+                Register
+            </button>
+        </div>
+
+        <form 
+            class="auth-form" 
+            [formGroup]="form">
+
+            @if(mode === 'Register'){
+                <div class="form-group">
+                    <label for="name">Name: *</label>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        formControlName="name"/>
+                    
+                    @if(form.controls.name.hasError('required') && form.controls.name.touched){
+                        <span class="form-hint form-hint-error">Name is required.</span>
+                    }
+                </div>
+
+            }
+
+            <div class="form-group">
+                <label for="login">Login: *</label>
+                <input 
+                    type="text" 
+                    name="login" 
+                    id="login" 
+                    formControlName="login"/>
+
+                @if(form.controls.login.hasError('required') && form.controls.login.touched){
+                    <span class="form-hint form-hint-error">Login is required.</span>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password: *</label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password"
+                    formControlName="password">
+
+                @if(form.controls.password.hasError('required') && form.controls.password.touched){
+                    <span class="form-hint form-hint-error">Password is required.</span>
+                }
+            </div>
+        </form>
+    </section>
+</main>
