@@ -1,7 +1,7 @@
 import { Service, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CardData, CardResponse } from './card';
+import { CardData, CardResponse } from '../card/card';
 
 @Service()
 export class CardService {
