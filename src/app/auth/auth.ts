@@ -15,4 +15,11 @@ export interface AuthForm{
     name: FormControl<string>;
     login: FormControl<string>;
     password: FormControl<string>;
-} 
+}
+
+export interface AuthResponse{
+    token: string;
+    type: string;
+    expiresAt: number;
+    userName: string;
+}
