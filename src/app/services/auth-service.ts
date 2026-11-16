@@ -9,10 +9,10 @@ export class AuthService{
     baseUrl = 'http://localhost:8080/auth';
 
     register(registerRequest: RegisterRequest): Observable<AuthResponse>{
-        return this.http.post<AuthResponse>(`${this.baseUrl}/signup`, registerRequest);
+        return this.http.post<AuthResponse>(`${this.baseUrl}/register`, registerRequest);
     }
 
     login(loginRequest: LoginRequest): Observable<AuthResponse>{
-        return this.http.post<AuthResponse>(`${this.baseUrl}/signin`, loginRequest);
+        return this.http.post<AuthResponse>(`${this.baseUrl}/login`, loginRequest);
     }
 }
