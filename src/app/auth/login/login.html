@@ -25,7 +25,8 @@
 
         <form 
             class="auth-form" 
-            [formGroup]="form">
+            [formGroup]="form"
+            (ngSubmit)="onSubmit()">
 
             @if(mode === 'Register'){
                 <div class="form-group">
@@ -69,7 +70,10 @@
                 }
             </div>
 
-            <button class="btn-primary auth-submit" type="submit">
+            <button 
+                class="btn-primary auth-submit" 
+                type="submit">
+                
                 {{ mode === 'Login'? 'Log in': 'Register'}}
             </button>
         </form>
