@@ -19,7 +19,7 @@ export class Login implements OnInit{
   authService = inject(AuthService);
   router = inject(Router);
 
-  // mode of the form ( Register | Login )
+  // mode of the form ( 'Register' | 'Login' )
   mode: 'Login' | 'Register' = 'Login';
 
   ngOnInit(): void {
@@ -28,6 +28,20 @@ export class Login implements OnInit{
       login: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
       password: new FormControl<string>('', {nonNullable: true, validators: [Validators.required, Validators.minLength(6)]})
     });
+  }
+
+  // switch to login or register form mode
+  onSwitchMode(mode: 'Login' | 'Register'): void{
+    this.mode = mode;
+
+    // name is required when mode === 'Register'
+    if(mode === 'Login'){
+      this.form.controls.name.clearValidators();
+    } else {
+      this.form.controls.name.addValidators(Validators.required);
+    }
+
+    this.form.controls.name.updateValueAndValidity();
   }
 
   // on submit form
@@ -39,6 +53,7 @@ export class Login implements OnInit{
       return;
     }
 
+    // handle the submit according to the mode ( 'Register' | 'Login' )
     if(this.mode === 'Register'){
       this.handleRegisterSubmitMode();
     } else {
@@ -52,7 +67,9 @@ export class Login implements OnInit{
     const registerRequest = this.form.value as RegisterRequest;
 
     this.authService.register(registerRequest).subscribe({
-      next: () => this.onAuthSuccess()
+      next: () => this.onAuthSuccess(),
+
+      error: response => this.onAuthError(response)
     });
   }
 
@@ -64,10 +81,10 @@ export class Login implements OnInit{
       password: this.form.controls.password.value
     };
 
-    console.log(loginRequest);
-
     this.authService.login(loginRequest).subscribe({
-      next: () => this.onAuthSuccess()
+      next: () => this.onAuthSuccess(),
+
+      error: response => this.onAuthError(response)
     });
   }
 
@@ -75,16 +92,24 @@ export class Login implements OnInit{
     void this.router.navigate(['/dashboard']);
   }
 
-  // switch to login or register form mode
-  onSwitchMode(mode: 'Login' | 'Register'): void{
-    this.mode = mode;
+  private onAuthError(reponse: any): void{
 
-    if(mode === 'Login'){
-      this.form.controls.name.clearValidators();
-    } else {
-      this.form.controls.name.addValidators(Validators.required);
+    // HttpStatus
+    switch(reponse.status){
+
+      // 401 = Unauthorized
+      case 401:
+        console.log("Access denied. Login or password does not match.");
+        break;
+
+      // 422 = Unprocessable Content
+      case 422:
+        console.log("It was not possible to complete the registration. Check whether the form data has been filled in correctly.");
+        break;
+
+      // default error message
+      default:
+        console.log("An error occurred during authentication.");
     }
-
-    this.form.controls.name.updateValueAndValidity();
   }
 }
