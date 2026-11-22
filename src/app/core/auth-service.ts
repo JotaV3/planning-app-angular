@@ -14,13 +14,13 @@ export class AuthService{
     register(registerRequest: RegisterRequest): Observable<AuthResponse>{
         return this.http
             .post<AuthResponse>(`${this.baseUrl}/register`, registerRequest)
-            .pipe(tap((res) => localStorage.setItem(TOKEN_KEY, res.token)));
+            .pipe(tap((res) => localStorage.setItem(TOKEN_KEY, res.token))); // stores token in the 'TOKEN_KEY'
     }
 
     login(loginRequest: LoginRequest): Observable<AuthResponse>{
         return this.http
             .post<AuthResponse>(`${this.baseUrl}/login`, loginRequest)
-            .pipe(tap((res) => localStorage.setItem(TOKEN_KEY, res.token)));
+            .pipe(tap((res) => localStorage.setItem(TOKEN_KEY, res.token))); // stores token in the 'TOKEN_KEY'
     }
 
     getToken(): string | null {
