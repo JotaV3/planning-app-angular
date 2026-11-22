@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import { CardService } from '../../services/card-service';
+import { CardService } from '../card-service';
 import { CardData } from '../card';
 import { InvalidField } from '../../common/validation/validation-error';
 import { CommonModule } from '@angular/common';
