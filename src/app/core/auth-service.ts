@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AuthResponse, LoginRequest, RegisterRequest } from '../auth/auth';
 import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 const TOKEN_KEY = 'planning_token';
@@ -9,6 +10,8 @@ const TOKEN_KEY = 'planning_token';
 @Injectable({ providedIn: 'root' })
 export class AuthService{
     http = inject(HttpClient);
+    router = inject(Router);
+
     baseUrl = 'http://localhost:8080/auth';
 
     register(registerRequest: RegisterRequest): Observable<AuthResponse>{
@@ -29,6 +32,7 @@ export class AuthService{
 
     logout() {
         localStorage.removeItem(TOKEN_KEY);
+        this.router.navigate(['/login']);
     }
 
     isLoggedIn(){
