@@ -30,4 +30,8 @@ export class AuthService{
     logout() {
         localStorage.removeItem(TOKEN_KEY);
     }
+
+    isLoggedIn(){
+        return !!this.getToken();
+    }
 }
